@@ -4,56 +4,75 @@ var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
                 "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
     
 var wins = 0;
+var guessesRemaining;
+var computerGuess;
+var correctAnswer;
+var remainingLetters;
+var answerArray = [];
+var wrongGuesses = [];
 
 var winsElement = document.getElementById('wins');
 var wordElement = document.getElementById('word');
 var guessesRemainingElement = document.getElementById('guessesRemaining');
 var wrongGuessesElement = document.getElementById('wrongGuesses');
 
+// This function runs when the page loads and selects the game word.
+window.onload = function() {
+    wins = 0;
+    guessesRemaining = 12;
+    wrongGuesses = [];
+    answerArray = [];
+    computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    correctAnswer = computerGuess.split("");
+    console.log(correctAnswer);
+    for (i = 0; i < correctAnswer.length; i++) {
+       answerArray[i] = "_";
+    }
+    wordElement.textContent = answerArray.join(" ");
+    remainingLetters = correctAnswer.length;
+};
+
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
+    // Determines which key was pressed.
+    var userGuess = event.key;
+    for (i = 0; i < alphabet.length; i++){
+        if (userGuess === alphabet[i]) {
+            if (correctAnswer.includes(alphabet[i])) {
+                for (j = 0; j < answerArray.length; j++) {
+                    if (correctAnswer[j] === alphabet[i]) {
+                        answerArray[j] = alphabet[i];
+                        remainingLetters--;
+                    }
+                }
 
-  // Determines which key was pressed.
-  var userGuess = event.key;
-
-  // Randomly chooses a choice from the options array. This is the Computer's guess.
-  var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-    for (var i = 0; i < alphabet.length; i++) {
-        if (computerGuess === alphabet[i]) {
-            
+                console.log(remainingLetters);
+            } else if (wrongGuesses.indexOf(userGuess) == -1) {
+                guessesRemaining--;
+                wrongGuesses.push(userGuess);
+                console.log(wrongGuesses);
+            }
         }
     }
 
-  if (userGuess === 'r') {
-      if (computerGuess === 'p') {
-          loses++;
-      } else if (computerGuess === 's') {
-          wins++;
-      } else {
-          ties++;
-      }
-  } else if (userGuess === 'p') {
-      if (computerGuess === 's') {
-          loses++;
-      } else if (computerGuess === 'r') {
-          wins++;
-      } else {
-          ties++;
-      }
-  } else if (userGuess === 's') {
-      if (computerGuess === 'r') {
-          loses++;
-      } else if (computerGuess === 'p') {
-          wins++;
-      } else {
-          ties++;
-      }
-  }
+    //increments wins and resets game
+    if (remainingLetters <= 0) {
+        wins++;
+        guessesRemaining = 12;
+        wrongGuesses = [];
+        answerArray = [];
+        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        correctAnswer = computerGuess.split("");
+        console.log(correctAnswer);
+        for (i = 0; i < correctAnswer.length; i++) {
+           answerArray[i] = "_";
+        }
+        wordElement.textContent = answerArray.join(" ");
+        remainingLetters = correctAnswer.length;
+    }
 
-  winsElement.textContent = "Wins: " + wins;
-  losesElement.textContent = "Loses: " + loses;
-  tiesElement.textContent = "Ties: " + ties;
-  pushedElement.textContent = "You Played: " + userGuess;
-  computerElement.textContent = "The Computer PLayed: " + computerGuess;
+    wordElement.textContent = answerArray.join(" ");
+    guessesRemainingElement.textContent = guessesRemaining
+    wrongGuessesElement.textContent = wrongGuesses.join(" ");
+    winsElement.textContent = "Wins: " + wins;
 };
