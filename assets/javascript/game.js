@@ -1,15 +1,35 @@
-// Creates an array that lists out all of the game words.
-var computerChoices = ["kendrick", "kanye", "jayz", "lilwayne", "jcole", "biggie"];
+// Creates an array that lists out all of the game words and images.
+var computerChoices = ["kendrick", "kanye", "jayz", "lilwayne", 
+    "jcole", "biggie", "drake", "postmalone", "eminem", "snoopdogg",
+    "nickiminaj", "childishgambino", "chancetherapper", "macmiller",
+    "cardib", "future", "guccimane", "geasy", "bigsean", "travisscott"
+];
 var images = [
     "assets/images/kendrick.jpg",
     "assets/images/kanye.jpeg",
     "assets/images/jay.jpg",
     "assets/images/wayne.jpg",
     "assets/images/jcole.png",
-    "assets/images/biggie.jpg"
+    "assets/images/biggie.jpg",
+    "assets/images/drake.jpeg",
+    "assets/images/postmalone.jpeg",
+    "assets/images/eminem.jpg",
+    "assets/images/snoop.jpg",
+    "assets/images/nicki.jpg",
+    "assets/images/childish.png",
+    "assets/images/chance.png",
+    "assets/images/mac.jpg",
+    "assets/images/cardi.jpg",
+    "assets/images/future.jpg",
+    "assets/images/gucci.jpg",
+    "assets/images/geasy.jpg",
+    "assets/images/bigsean.jpg",
+    "assets/images/travis.jpg"
 ]
-var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
-                "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", 
+    "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+    "u", "v", "w", "x", "y", "z"
+];
     
 var wins = 0;
 var guessesRemaining;
@@ -34,7 +54,8 @@ window.onload = function() {
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
-    // Determines which key was pressed.
+
+    // Determines which key was pressed and if it is in the word.
     var userGuess = event.key;
     for (i = 0; i < alphabet.length; i++){
         if (userGuess === alphabet[i]) {
@@ -45,11 +66,9 @@ document.onkeyup = function(event) {
                         remainingLetters--;
                     }
                 }
-                console.log(remainingLetters);
             } else if (wrongGuesses.indexOf(userGuess) == -1) {
                 guessesRemaining--;
                 wrongGuesses.push(userGuess);
-                console.log(wrongGuesses);
             }
         }
     }
@@ -62,6 +81,7 @@ document.onkeyup = function(event) {
 
     }
 
+    //alerts to loss and resets game
     if (guessesRemaining <= 0){
         alert("You Lose.. Correct Answer Was " + computerGuess);
         reset();
@@ -71,17 +91,15 @@ document.onkeyup = function(event) {
     guessesRemainingElement.textContent = guessesRemaining
     wrongGuessesElement.textContent = wrongGuesses.join(" ");
     winsElement.textContent = "Wins: " + wins;
-
-
 };
 
+//resets the game
 var reset = function() {
     guessesRemaining = 12;
     wrongGuesses = [];
     answerArray = [];
     computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     correctAnswer = computerGuess.split("");
-    console.log(correctAnswer);
     for (i = 0; i < correctAnswer.length; i++) {
        answerArray[i] = "_";
     }
