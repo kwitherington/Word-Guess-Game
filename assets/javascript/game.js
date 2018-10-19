@@ -1,5 +1,13 @@
 // Creates an array that lists out all of the game words.
 var computerChoices = ["kendrick", "kanye", "jayz", "lilwayne", "jcole", "biggie"];
+var images = [
+    "assets/images/kendrick.jpg",
+    "assets/images/kanye.jpg",
+    "assets/images/jay.jpg",
+    "assets/images/wayne.jpg",
+    "assets/images/jcole.jpg",
+    "assets/images/biggie.jpg"
+]
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
                 "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
     
@@ -15,6 +23,7 @@ var winsElement = document.getElementById('wins');
 var wordElement = document.getElementById('word');
 var guessesRemainingElement = document.getElementById('guessesRemaining');
 var wrongGuessesElement = document.getElementById('wrongGuesses');
+var winningImgElement = document.getElementById('winningImg')
 
 // This function runs when the page loads and selects the game word.
 window.onload = function() {
@@ -47,7 +56,9 @@ document.onkeyup = function(event) {
     //increments wins and resets game
     if (remainingLetters <= 0) {
         wins++;
+        winningImgElement.src = images[computerChoices.indexOf(computerGuess)];
         reset();
+
     }
 
     if (guessesRemaining <= 0){
