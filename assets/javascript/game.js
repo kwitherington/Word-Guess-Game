@@ -2,10 +2,10 @@
 var computerChoices = ["kendrick", "kanye", "jayz", "lilwayne", "jcole", "biggie"];
 var images = [
     "assets/images/kendrick.jpg",
-    "assets/images/kanye.jpg",
+    "assets/images/kanye.jpeg",
     "assets/images/jay.jpg",
     "assets/images/wayne.jpg",
-    "assets/images/jcole.jpg",
+    "assets/images/jcole.png",
     "assets/images/biggie.jpg"
 ]
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
@@ -29,6 +29,7 @@ var winningImgElement = document.getElementById('winningImg')
 window.onload = function() {
     wins = 0;
     reset();
+    winningImgElement.src = "assets/images/hiphop.jpg";
 };
 
 // This function is run whenever the user presses a key.
